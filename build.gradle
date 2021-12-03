@@ -19,6 +19,7 @@ plugins {
 	id 'base'
 	id 'maven-publish'
 	id 'java' // for jd gen
+	id("elect86.magik") version "0.2.4"
 }
 
 def minecraft_version = "1.8.9"
@@ -28,6 +29,7 @@ def ENV = System.getenv()
 // Then completely ignore it
 def build_number = ENV.GITHUB_ACTIONS ? buildTime() : "local"
 def yarnVersion = "${minecraft_version}+build.${build_number}"
+project.ext["githubToken"] = ENV.MAVEN_PUBLISH_TOKEN
 
 static def buildTime() {
 	def df = new java.text.SimpleDateFormat("yyyyMMddHHmm")
@@ -787,10 +789,10 @@ task javadocJar(type: Jar, dependsOn: ["javadoc"]) {
 
 publishing {
 	publications {
-		maven(MavenPublication) {
-			groupId 'net.fabricmc'
-			artifactId "yarn"
-			version yarnVersion
+		createGithubPublication { this: MavenPublication
+            		groupId = "io.github.legacyrewoven"
+            		artifactId = "yarn"
+            		version yarnVersion
 
 			artifact(compressTiny.output) {
 				classifier "tiny"
@@ -804,21 +806,17 @@ publishing {
 				classifier "mergedv2"
 			}
 			artifact javadocJar
+		}.github {
+			addSnapshotPublication()
 		}
 
 	}
 	repositories {
 		if (ENV.MAVEN_PUBLISH_TOKEN) {
-			maven {
-				url 'https://maven.legacyfabric.net/'
-				credentials {
-					username 'BobTheBuildSlave'
-					password ENV.MAVEN_PUBLISH_TOKEN
-				}
-				authentication {
-					basic(BasicAuthentication)
-				}
-			}
+			github {
+				name = "github"
+				domain = "Legacy-Rewoven/maven"
+			} 
 		}
 	}
 }
