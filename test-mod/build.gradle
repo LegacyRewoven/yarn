@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version "0.7-SNAPSHOT" // To use chocoloom, change the version to a commit hash
+	id 'fabric-loom' version "0.10-SNAPSHOT" // To use chocoloom, change the version to a commit hash
 	id 'maven-publish'
 }
 def ENV = System.getenv()
@@ -45,7 +45,7 @@ dependencies {
 	}
 
 	minecraft "com.mojang:minecraft:${minecraft_version}"
-	mappings "net.fabricmc:yarn:${minecraft_version}+build.+:v2"
+	mappings "net.fabricmc:yarn:${minecraft_version}+build.local:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 }
 
