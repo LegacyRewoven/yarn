@@ -2,7 +2,7 @@ plugins {
 	id 'fabric-loom' version "0.7-SNAPSHOT" // To use chocoloom, change the version to a commit hash
 	id 'maven-publish'
 }
-
+def ENV = System.getenv()
 def minecraft_version = ENV.MC_VERSION ? ENV.MC_VERSION : "1.8.9"
 def old_version = !"1.13.2 1.12.2 1.11.2 1.10.2 1.9.4 1.8.9 1.7.10".contains(minecraft_version);
 def lwjglVersion = System.getProperty("os.name").toLowerCase().contains("mac") ? "2.9.1" : "2.9.0"
