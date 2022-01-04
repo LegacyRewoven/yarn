@@ -4,7 +4,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: openjdk:11-jdk
+      image: openjdk:17-jdk
       options: --user root
     strategy:
       matrix: 
@@ -28,6 +28,6 @@ jobs:
       - uses: gradle/wrapper-validation-action@v1
       - run: ./gradlew publishToMavenLocal --stacktrace
       - run: cd test-mod && ./gradlew build
-      - run: cd .. && ./gradlew publish --stacktrace
+      - run: ./gradlew publish --stacktrace
         env:
           MAVEN_PUBLISH_TOKEN: ${{ secrets.MAVEN_PUBLISH_TOKEN }}
