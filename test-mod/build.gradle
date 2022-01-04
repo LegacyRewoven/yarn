@@ -1,7 +1,6 @@
 plugins {
 	id 'fabric-loom' version "0.10-SNAPSHOT" // To use chocoloom, change the version to a commit hash
 	id 'maven-publish'
-	id 'base'
 }
 def ENV = System.getenv()
 def minecraft_version = ENV.MC_VERSION ? ENV.MC_VERSION : "1.8.9"
