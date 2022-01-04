@@ -521,7 +521,7 @@ clean.doFirst {
 }
 
 task publishToMavenLocalLocal() {
-	yarnVersion = "${minecraft_version}+build.local"
+	yarnVersion = "${minecraft_version}+build.${build_number}"
 }
 
 tasks.build.dependsOn "compressTiny","tinyJar","v2UnmergedYarnJar", "v2MergedYarnJar"
